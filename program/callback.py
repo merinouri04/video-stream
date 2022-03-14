@@ -24,6 +24,7 @@ from program.utils.inline import menu_markup, stream_markup
 
 from pyrogram import Client, filters
 from pyrogram.types import CallbackQuery, InlineKeyboardButton, InlineKeyboardMarkup
+
 from config import (
     BOT_USERNAME,
     GROUP_SUPPORT,
@@ -39,27 +40,30 @@ from config import (
 async def start_set(_, query: CallbackQuery):
     await query.answer("home start")
     await query.edit_message_text(
-        f"""Hi [{query.message.chat.first_name}](tg://user?id={query.message.chat.id}) 👋🏻\n
-💭 [{me_bot.first_name}](https://t.me/{me_bot.username}) is a bot to play music and video in groups, through the new Telegram video chats.
-
-🕵🏻 Check out all the **Bot's commands** and how they work by clicking on the » 📚 **Commands** button!
-
-🧑🏻‍💻 To know how to use this bot, please click on the » ❓ **Basic Guide** button!
-""",
-        reply_markup=InlineKeyboardMarkup(
+        f"""
+₪ **Find out all the Bot's commands and how they work by clicking on the » ◍⌊Commands⌉ button!**
+₪ **To know how to use this bot, please click on the » ◍⌊Guide⌉ button!**""",
+                reply_markup=InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("➕ Add me to a Group ➕", url=f"https://t.me/{me_bot.username}?startgroup=true")
-                ],[
-                    InlineKeyboardButton("❓ Basic Guide", callback_data="user_guide")
-                ],[
-                    InlineKeyboardButton("📚 Commands", callback_data="command_list"),
-                    InlineKeyboardButton("❤️ Donate", url=f"https://t.me/{OWNER_USERNAME}")
-                ],[
-                    InlineKeyboardButton("👥 Support Group", url=f"https://t.me/{GROUP_SUPPORT}"),
-                    InlineKeyboardButton("📣 Support Channel", url=f"https://t.me/{UPDATES_CHANNEL}")
-                ],[
-                    InlineKeyboardButton("🌐 Source Code", url="https://github.com/levina-lab/video-stream")
+                    InlineKeyboardButton(
+                        "⩡ Add Robot",
+                        url=f"https://t.me/{BOT_USERNAME}?startgroup=true",
+                    )
+                ],
+                [InlineKeyboardButton("▣⌊Donate⌉", url=f"https://t.me/{OWNER_USERNAME}")],
+                [InlineKeyboardButton("◍⌊Commands⌉", callback_data="command_list")],
+                [
+                    InlineKeyboardButton("◍⌊Quick Guide⌉", callback_data="user_guide"),
+                    InlineKeyboardButton("◍⌊Persian Guide⌉", callback_data="quick_use"),
+                ],
+                [
+                    InlineKeyboardButton(
+                        "₪⌊Sup-Group⌉", url=f"https://t.me/{GROUP_SUPPORT}"
+                    ),
+                    InlineKeyboardButton(
+                        "₪⌊Channel⌉", url=f"https://t.me/{UPDATES_CHANNEL}"
+                    )
                 ],
             ]
         ),
@@ -70,19 +74,40 @@ async def start_set(_, query: CallbackQuery):
 @Client.on_callback_query(filters.regex("quick_use"))
 @check_blacklist()
 async def quick_set(_, query: CallbackQuery):
-    await query.answer("quick bot usage")
+    await query.answer("راهنــمای پـارسی")
     await query.edit_message_text(
-        f"""ℹ️ Quick use Guide bot, please read fully !
-
-👩🏻‍💼 » /play - Type this with give the song title or youtube link or audio file to play Music. (Remember to don't play YouTube live stream by using this command!, because it will cause unforeseen problems.)
-
-👩🏻‍💼 » /vplay - Type this with give the song title or youtube link or video file to play Video. (Remember to don't play YouTube live video by using this command!, because it will cause unforeseen problems.)
-
-👩🏻‍💼 » /vstream - Type this with give the YouTube live stream video link or m3u8 link to play live Video. (Remember to don't play local audio/video files or non-live YouTube video by using this command!, because it will cause unforeseen problems.)
-
-❓ Have questions? Contact us in [Support Group](https://t.me/{GROUP_SUPPORT}).""",
+        f"""ℹ️ راهنمای سریع فارسی استفاده از ربات!
+₪ افزودن ربات
+⨞ **برای استفاده از ربات ابتدا توسط دکمه پایین ، اونو تو گروهت اضافه و سپس مدیر کن . برای این کار کار قابلیت های حداقلی زیر رو بهش بده
+**
+✓ delete messages - حذف پیام
+✓ invite users - دعوت کاربران
+✓ manage video chats - مدیریت ویدیوچت
+✓ pin messages - سنجاق پیام ها
+※ در صورت انجام ندادن این مرحله قابلیت استفاده از ربات برای گروه شما وجود نخواهد داشت
+———
+₪ **دستورات مهم استریم | صرفاادمین گروه**
+⨞ بعد از اضافه کردن ادمین جدید برای شناسایی شدنش توسط ربات یک بار از دستور `/reload` استفاده کُن
+—→ `/play` - **برای پخش آهنگ توی ویدیوچت از این دستور استفاده کن**
+           - تایپ دستور و بلافاصله اسم آهنگ(هر زبانی باشد فرق نمی کند)
+           - ریپلای `/play` یا `.play` روی فایل صوتی
+—→ `/vplay` - **برای پخش ویدیو توی ویدیوچت از این دستور استفاده کن**
+            - تایپ دستور و بلافاصله اسم ویدیو
+            - ریپلای `/vplay` یا `.vplay` روی فایل ویدیویی
+₪در صورت وجود اشکال در استفاده و نصب به [گروه پشتیبانی](https://t.me/{GROUP_SUPPORT}) مراجعه کن.
+₪ **بقیه دستورات کاربردی در لینک کانال موجود در INFO بـات**
+""",
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("🔙 Go Back", callback_data="user_guide")]]
+            [
+                [
+                    InlineKeyboardButton(
+                        "اضافه کردن ربات",
+                        url=f"https://t.me/{BOT_USERNAME}?startgroup=true",
+                    )
+                ],[
+                    InlineKeyboardButton("⌂Home", callback_data="home_start")
+                ],
+            ]
         ),
         disable_web_page_preview=True,
     )
@@ -93,30 +118,20 @@ async def quick_set(_, query: CallbackQuery):
 async def guide_set(_, query: CallbackQuery):
     await query.answer("user guide")
     await query.edit_message_text(
-        f"""❓ How to use this Bot ?, read the Guide below !
-
+        f"""❓ To know how to use this Bot, read the Guide below !
 1.) First, add this bot to your Group.
 2.) Then, promote this bot as administrator on the Group also give all permissions except Anonymous admin.
 3.) After promoting this bot, type /reload in Group to update the admin data.
 3.) Invite @{me_user.username} to your group or type /userbotjoin to invite her, unfortunately the userbot will joined by itself when you type `/play (song name)` or `/vplay (song name)`.
 4.) Turn on/Start the video chat first before start to play video/music.
 
-`- END, EVERYTHING HAS BEEN SETUP -`
-
-📌 If the userbot not joined to video chat, make sure if the video chat already turned on and the userbot in the chat.
+    END, EVERYTHING HAS BEEN SETUP!
 
 💡 If you have a follow-up questions about this bot, you can tell it on my support chat here: @{GROUP_SUPPORT}.""",
         reply_markup=InlineKeyboardMarkup(
-            [
-                [
-                    InlineKeyboardButton("» Quick use Guide «", callback_data="quick_use")
-                ],[
-                    InlineKeyboardButton("🔙 Go Back", callback_data="home_start")
-                ],
-            ]
+            [[InlineKeyboardButton("⌂Home", callback_data="home_start")]]
         ),
     )
-
 
 @Client.on_callback_query(filters.regex("command_list"))
 @check_blacklist()
@@ -124,22 +139,19 @@ async def commands_set(_, query: CallbackQuery):
     user_id = query.from_user.id
     await query.answer("commands menu")
     await query.edit_message_text(
-        f"""✨ **Hello [{query.message.chat.first_name}](tg://user?id={query.message.chat.id}) !**
-
-» Check out the menu below to read the module information & see the list of available Commands !
-
-All commands can be used with (`! / .`) handler""",
+        f"""✨ **[{query.message.chat.first_name}](tg://user?id={query.message.chat.id}) !** , Check out the menu below to read list of available Commands !
+**Use Commands With (`!` `/` `.`) Handler**""",
         reply_markup=InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("👮🏻‍♀️ Admins Commands", callback_data="admin_command"),
+                    InlineKeyboardButton("⩥Admins Commands", callback_data="admin_command"),
                 ],[
-                    InlineKeyboardButton("👩🏻‍💼 Users Commands", callback_data="user_command"),
+                    InlineKeyboardButton("⩥Users Commands", callback_data="user_command"),
                 ],[
-                    InlineKeyboardButton("Sudo Commands", callback_data="sudo_command"),
-                    InlineKeyboardButton("Owner Commands", callback_data="owner_command"),
+                    InlineKeyboardButton("⁕Sudo Commands", callback_data="sudo_command"),
+                    InlineKeyboardButton("⁕Owner Commands", callback_data="owner_command"),
                 ],[
-                    InlineKeyboardButton("🔙 Go Back", callback_data="home_start")
+                    InlineKeyboardButton("⌂Home", callback_data="home_start")
                 ],
             ]
         ),
@@ -151,22 +163,20 @@ All commands can be used with (`! / .`) handler""",
 async def user_set(_, query: CallbackQuery):
     await query.answer("basic commands")
     await query.edit_message_text(
-        f"""✏️ Command list for all user.
-
-» /play (song name/youtube link) - play the music from youtube
-» /stream (m3u8/youtube live link) - play youtube/m3u8 live stream music
-» /vplay (video name/youtube link) - play the video from youtube
-» /vstream (m3u8/youtube live link) - play youtube/m3u8 live stream video
-» /playlist - view the queue list of songs and current playing song
-» /lyric (query) - search for song lyrics based on the name of the song
-» /video (query) - download video from youtube
-» /song (query) - download song from youtube
-» /search (query) - search for the youtube video link
-» /ping - show the bot ping status
-» /uptime - show the bot uptime status
-» /alive - show the bot alive info (in Group only)""",
+        f"""⪢ Command list for all user.
+» /play (song name/link) ⇒ **play music on video chat**
+» /vplay (video name/link) ⇒ **play video on video chat**
+» /playlist ⇒ **see the current playing song**
+» /lyric (query) ⇒ **scrap the song lyric**
+» /video (query) ⇒ **download video from youtube**
+» /song (query) ⇒ **ownload song from youtube**
+» /search (query) ⇒ **search a youtube video link**
+» /ping ⇒ **show the bot ping status**
+» /uptime ⇒ **show the bot uptime status**
+» /alive ⇒ **show the bot alive info** (in Group only)
+⚡️ __Powered by {BOT_NAME} AI__""",
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("🔙 Go Back", callback_data="command_list")]]
+            [[InlineKeyboardButton("⪡Back", callback_data="command_list")]]
         ),
     )
 
@@ -176,22 +186,22 @@ async def user_set(_, query: CallbackQuery):
 async def admin_set(_, query: CallbackQuery):
     await query.answer("admin commands")
     await query.edit_message_text(
-        f"""✏️ Command list for group admin.
-
-» /pause - pause the current track being played
-» /resume - play the previously paused track
-» /skip - goes to the next track
-» /stop - stop playback of the track and clears the queue
-» /vmute - mute the streamer userbot on group call
-» /vunmute - unmute the streamer userbot on group call
-» /volume `1-200` - adjust the volume of music (userbot must be admin)
-» /reload - reload bot and refresh the admin data
-» /userbotjoin - invite the userbot to join group
-» /userbotleave - order userbot to leave from group
-» /startvc - start/restart the group call
-» /stopvc - stop/discard the group call""",
+        f"""⪢ Command list for group admin.
+» /pause ⇒ **pause the current track being played**
+» /resume ⇒ **play the previously paused track**
+» /skip ⇒ **goes to the next track**
+» /stop ⇒ **stop playback of the track and clears the queue**
+» /vmute ⇒ **mute the streamer userbot on group call**
+» /vunmute ⇒ **unmute the streamer userbot on group call**
+» /volume `1-200` ⇒ **adjust the volume of music (userbot must be admin)**
+» /reload ⇒ **reload bot and refresh the admin data**
+» /userbotjoin ⇒ **invite the userbot to join group**
+» /userbotleave ⇒ **order userbot to leave from group**
+» /startvc ⇒ **start/restart the group call**
+» /stopvc ⇒ **stop/discard the group call**
+⚡️ __Powered by {BOT_NAME} AI__""",
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("🔙 Go Back", callback_data="command_list")]]
+            [[InlineKeyboardButton("⪡Back", callback_data="command_list")]]
         ),
     )
 
@@ -201,24 +211,24 @@ async def admin_set(_, query: CallbackQuery):
 async def sudo_set(_, query: CallbackQuery):
     user_id = query.from_user.id
     if user_id not in SUDO_USERS:
-        await query.answer("⚠️ You don't have permissions to click this button\n\n» This button is reserved for sudo members of this bot.", show_alert=True)
+        await query.answer("⨉ You don't have permissions to click this button", show_alert=True)
         return
     await query.answer("sudo commands")
     await query.edit_message_text(
         f"""✏️ Command list for sudo user.
-
-» /stats - get the bot current statistic
-» /calls - show you the list of all active group call in database
-» /block (`chat_id`) - use this to blacklist any group from using your bot
-» /unblock (`chat_id`) - use this to whitelist any group from using your bot
-» /blocklist - show you the list of all blacklisted chat
-» /speedtest - run the bot server speedtest
-» /sysinfo - show the system information
-» /logs - generate the current bot logs
-» /eval - run an code
-» /sh - run an code""",
+» /stats ⇒ **get the bot current statistic**
+» /calls ⇒ **show you the list of all active group call in database**
+» /block (`chat_id`) ⇒ **use this to blacklist any group from using your bot**
+» /unblock (`chat_id`) ⇒ **use this to whitelist any group from using your bot**
+» /blocklist ⇒ **show you the list of all blacklisted chat**
+» /speedtest ⇒ **run the bot server speedtest**
+» /sysinfo ⇒ **show the system information**
+» /logs ⇒ **generate the current bot logs**
+» /eval ⇒ **execute any code (`developer stuff`)**
+» /sh ⇒ **run any command (`developer stuff`)**
+⚡ __Powered by {BOT_NAME} AI__""",
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("🔙 Go Back", callback_data="command_list")]]
+            [[InlineKeyboardButton("⪡Back", callback_data="command_list")]]
         ),
     )
 
@@ -228,22 +238,22 @@ async def sudo_set(_, query: CallbackQuery):
 async def owner_set(_, query: CallbackQuery):
     user_id = query.from_user.id
     if user_id not in OWNER_ID:
-        await query.answer("⚠️ You don't have permissions to click this button\n\n» This button is reserved for owner of this bot.", show_alert=True)
+        await query.answer("⨉ You don't have permissions to click this button", show_alert=True)
         return
     await query.answer("owner commands")
     await query.edit_message_text(
-        f"""✏️ Command list for bot owner.
-
-» /gban (`username` or `user_id`) - for global banned people, can be used only in group
-» /ungban (`username` or `user_id`) - for un-global banned people, can be used only in group
-» /update - update your bot to latest version
-» /restart - restart your bot server
-» /leaveall - order userbot to leave from all group
-» /leavebot (`chat id`) - order bot to leave from the group you specify
-» /broadcast (`message`) - send a broadcast message to all groups in bot database
-» /broadcast_pin (`message`) - send a broadcast message to all groups in bot database with the chat pin""",
+        f""" Command list for bot owner.
+» /gban (`username` or `user_id`) ⇒ for global banned people, can be used only in group
+» /ungban (`username` or `user_id`) ⇒ for un-global banned people, can be used only in group
+» /update ⇒ update your bot to latest version
+» /restart ⇒ restart your bot directly
+» /leaveall ⇒ order userbot to leave from all group
+» /leavebot (`chat id`) ⇒ order bot to leave from the group you specify
+» /broadcast (`message`) ⇒ send a broadcast message to all groups in bot database
+» /broadcast_pin (`message`) ⇒ send a broadcast message to all groups in bot database with the chat pin
+⚡ __Powered by {BOT_NAME} AI__""",
         reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("🔙 Go Back", callback_data="command_list")]]
+            [[InlineKeyboardButton("⪡Back", callback_data="command_list")]]
         ),
     )
 

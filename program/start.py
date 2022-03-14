@@ -84,27 +84,31 @@ async def start_(c: Client, message: Message):
     user_id = message.from_user.id
     await add_served_user(user_id)
     await message.reply_text(
-        f"""Hi {message.from_user.mention()} 👋🏻\n
-💭 [{me_bot.first_name}](https://t.me/{me_bot.username}) is a bot to play music and video in groups, through the new Telegram video chats.
-
-🕵🏻 Check out all the **Bot's commands** and how they work by clicking on the » 📚 **Commands** button!
-
-🧑🏻‍💻 To know how to use this bot, please click on the » ❓ **Basic Guide** button!
-""",
-        reply_markup=InlineKeyboardMarkup(
+        f"""₪👋🏻**Hello, {message.from_user.mention()} !**\n
+₪ [{me_bot.first_name}](https://t.me/{BOT_USERNAME}) **Is a bot to play music and video in groups, through the Telegram Group video chat!𝄞**
+₪ **Find out all the Bot's commands and how they work by clicking on the » ◍⌊Commands⌉ button!**
+₪ **To know how to use this bot, please click on the » ◍⌊Guide⌉ button!**""",
+                reply_markup=InlineKeyboardMarkup(
             [
                 [
-                    InlineKeyboardButton("➕ Add me to a Group ➕", url=f"https://t.me/{me_bot.username}?startgroup=true")
-                ],[
-                    InlineKeyboardButton("❓ Basic Guide", callback_data="user_guide")
-                ],[
-                    InlineKeyboardButton("📚 Commands", callback_data="command_list"),
-                    InlineKeyboardButton("❤️ Donate", url=f"https://t.me/{OWNER_USERNAME}")
-                ],[
-                    InlineKeyboardButton("👥 Support Group", url=f"https://t.me/{GROUP_SUPPORT}"),
-                    InlineKeyboardButton("📣 Support Channel", url=f"https://t.me/{UPDATES_CHANNEL}")
-                ],[
-                    InlineKeyboardButton("🌐 Source Code", url="https://github.com/levina-lab/video-stream")
+                    InlineKeyboardButton(
+                        "⩡ Add Robot",
+                        url=f"https://t.me/{BOT_USERNAME}?startgroup=true",
+                    )
+                ],
+                [InlineKeyboardButton("▣⌊Donate⌉", url=f"https://t.me/{OWNER_USERNAME}")],
+                [InlineKeyboardButton("◍⌊Commands⌉", callback_data="command_list")],
+                [
+                    InlineKeyboardButton("◍⌊Quick Guide⌉", callback_data="user_guide"),
+                    InlineKeyboardButton("◍⌊Persian Guide⌉", callback_data="quick_use"),
+                ],
+                [
+                    InlineKeyboardButton(
+                        "₪⌊Sup-Group⌉", url=f"https://t.me/{GROUP_SUPPORT}"
+                    ),
+                    InlineKeyboardButton(
+                        "₪⌊Channel⌉", url=f"https://t.me/{UPDATES_CHANNEL}"
+                    )
                 ],
             ]
         ),
